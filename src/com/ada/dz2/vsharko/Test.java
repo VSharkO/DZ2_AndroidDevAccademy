@@ -15,7 +15,7 @@ public class Test {
 
         //CRUD while
         while(true) {
-            System.out.println("\n\nPress:\tc to create\n\t\tr to read\n\t\tu to update\n\t\td to delete");
+            System.out.println("\n\nINSTRUCTION: Type \"STOP\" when your done with task\n\n Press:\tc to create\n\t\tr to read\n\t\tu to update\n\t\td to delete");
             inputCRUD = sc.nextLine();
             if(inputCRUD.equals("STOP"))break;
 
@@ -63,9 +63,13 @@ public class Test {
 
                         //create author while
                     }else if (inputCREATE.equals("c")){
-
-
-
+                        while (true) {
+                            String category;
+                            System.out.println("Enter Category: ");
+                            category = sc.nextLine();
+                            if (category.equals("STOP")) break;
+                            database.createCategory(category);
+                        }
                     }else{
                         System.out.println("Wrong input!");
                         break;
@@ -92,6 +96,7 @@ public class Test {
                     }
                 }
             }
+
             inputCREATE="";
             inputCRUD="";
             inputREAD="";

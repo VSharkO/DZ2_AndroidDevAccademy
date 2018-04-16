@@ -19,9 +19,6 @@ public class dbWannabe {
         }
     }
 
-
-
-
     public void createCategory(String category){
         if(!categoryList.contains(category)){
             this.categoryList.add(category);
@@ -46,15 +43,20 @@ public class dbWannabe {
 //getters
     public void getAuthors(){
         int i=1;
-        for (String element : authorList) {
+        List<String> thisList = new LinkedList<>();
+        thisList=this.authorList;
+        Collections.sort(thisList);
+        for (String element : thisList) {
             System.out.println(i+". "+element);
             i++;
         }
     }
 
     public void getCategories(){
+        int i=1;
         for (String element : categoryList) {
-            System.out.println(element);
+            System.out.println(i+". "+element);
+            i++;
         }
     }
 
@@ -63,10 +65,4 @@ public class dbWannabe {
             System.out.println(element.toString());
         }
     }
-
-
-
-
-
-
 }
