@@ -125,6 +125,14 @@ public class dbWannabe {
         }
     }
 
+    public void getNewsText(int index){
+        if(index<=newsList.size() && index>0){
+            System.out.println(newsList.get(index-1).getText());
+        }else{
+            System.out.println("There is no news with that index, try again!");
+        }
+    }
+
 }
 
 

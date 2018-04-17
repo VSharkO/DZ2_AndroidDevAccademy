@@ -17,6 +17,7 @@ public class Test {
         String inputCRUD;
         String inputCREATE = "";
         String inputREAD = "";
+        String inputUPDATE = "";
         String inputDELETE = "";
 
         //CRUD while
@@ -24,14 +25,14 @@ public class Test {
 
             System.out.println("\n\nINSTRUCTION: Type \"STOP\" when your done with task\n\n " +
                     "Press:\tc to create\n\t\tr to read\n\t\tu to update\n\t\td to delete");
-            inputCRUD = sc.nextLine();
 
+            inputCRUD = sc.nextLine();
             if (inputCRUD.equals("STOP")) break;
 
             //Create while
             if (inputCRUD.equals("c")) {
-
                 while (true) {
+
                     System.out.println("What would you like to create\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Author");
                     inputCREATE = sc.nextLine();
                     if (inputCREATE.equals("STOP")) break;
@@ -43,21 +44,23 @@ public class Test {
                             String text = "";
                             List<String> category = new LinkedList<>();
                             String author="";
+
                             System.out.println("Enter News text: ");
-
                             text = sc.nextLine();
-
                             if (text.equals("STOP")) break;
+
                             System.out.println("Enter Categories separated with one column");
                             String categoryText = sc.nextLine();
+
                             if(categoryText.contains(",")) {
                                 String[] tokens = categoryText.split(",");
                                 Collections.addAll(category, tokens);
-                            }else{
+                            }else {
                                 category.add(categoryText);
                             }
                             System.out.println("Enter Author: ");
                             author = sc.nextLine();
+
                             database.createNews(text, author, category);
 
                         }
@@ -70,8 +73,8 @@ public class Test {
                             String author;
                             System.out.println("Enter Author: ");
                             author = sc.nextLine();
-
                             if (author.equals("STOP")) break;
+
                             database.createAuthor(author);
 
                         }
@@ -84,8 +87,8 @@ public class Test {
                             String category;
                             System.out.println("Enter Category: ");
                             category = sc.nextLine();
-
                             if (category.equals("STOP")) break;
+
                             database.createCategory(category);
 
                         }
@@ -100,26 +103,32 @@ public class Test {
 
                     System.out.println("What you would like to read\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Authors");
                     inputREAD = sc.nextLine();
+                    if(inputREAD.equals("STOP"))break;
+
                     if (inputREAD.equals("c")) {
 
                         database.getCategories();
-                        break;
 
                     } else if (inputREAD.equals("n")) {
 
                         database.getNews();
-                        break;
 
+                        while (true){
+
+                            System.out.println("Which news you want to read?");
+                            inputREAD = sc.nextLine();
+                            if (inputREAD.equals("STOP")) break;
+
+                            database.getNewsText(Integer.parseInt(inputREAD));
+
+                        }
                     } else if (inputREAD.equals("a")) {
 
                         database.getAuthors();
-                        break;
 
                     } else {
 
                         System.out.println("Wrong input! try again");
-                        break;
-
                     }
 
                 }
@@ -144,7 +153,6 @@ public class Test {
 
                             if (inputDELETE.matches("\\d")) {
                                 database.deleteCategory(Integer.parseInt(inputDELETE));
-                                break;
                             } else {
                                 System.out.println("You need to enter a number, or STOP to go back.");
                             }
@@ -162,7 +170,6 @@ public class Test {
 
                             if (inputDELETE.matches("\\d")) {
                                 database.deleteNews(Integer.parseInt(inputDELETE));
-                                break;
                             } else {
                                 System.out.println("You need to enter a number, or STOP to go back.");
                             }
@@ -180,7 +187,7 @@ public class Test {
 
                             if (inputDELETE.matches("\\d")) {
                                 database.deleteAuthor(Integer.parseInt(inputDELETE));
-                                break;
+
                             } else {
                                 System.out.println("You need to enter a number, or STOP to go back.");
                             }
@@ -193,9 +200,6 @@ public class Test {
 
 
             }
-            inputCREATE = "";
-            //inputCRUD="";
-            //inputREAD = "";
 
         }
     }
