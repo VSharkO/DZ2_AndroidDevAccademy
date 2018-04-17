@@ -36,8 +36,9 @@ public class dbWannabe {
 
             if(!categoryList.contains(cg)){
                 this.categoryList.add(cg);
-                instanceCategoryes.add(cg);
+
             }
+            instanceCategoryes.add(cg);
 
         }
         createAuthor(author);
@@ -76,4 +77,38 @@ public class dbWannabe {
 
         }
     }
+
+    public void deleteCategory(int index){
+        if(index<categoryList.size()&&index>0) {
+            int i = 0;
+            for (News news : newsList) {
+                List<String> c = new LinkedList<>();
+                String[] tokens = news.getCategory().split(",");
+                Collections.addAll(c, tokens);
+
+                if (c.size() == 1 && categoryList.get(index-1).equals(c.get(0))) {
+                    newsList.remove(i);
+                    break;
+                }
+
+                if (c.contains(categoryList.get(index-1))) {
+                    c.remove(categoryList.get(index-1));
+                    news.setCategory(c);
+                    }
+                i++;
+                }
+            categoryList.remove(index-1);
+            }else{
+
+            System.out.println("There is no category with that index, try again!");
+
+        }
+
+    }
+
+
 }
+
+
+
+

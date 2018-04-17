@@ -14,9 +14,10 @@ public class Test {
 
         dbWannabe database = new dbWannabe();
         Scanner sc = new Scanner(System.in);
-        String inputCRUD="";
+        String inputCRUD;
         String inputCREATE="";
         String inputREAD="";
+        String inputDELETE="";
 
         //CRUD while
         while(true) {
@@ -31,7 +32,7 @@ public class Test {
             if (inputCRUD.equals("c")) {
 
                 while (inputCREATE.equals("")) {
-                    System.out.println("What you would like to create\n\nPress:\tc for category\n\t\tn to News\n\t\ta to Author");
+                    System.out.println("What would you like to create\n\nPress:\tc for category\n\t\tn to News\n\t\ta to Author");
                     inputCREATE = sc.nextLine();
 
 
@@ -47,7 +48,6 @@ public class Test {
                             text = sc.nextLine();
                             if (text.equals("STOP")) break;
                             System.out.println("Enter Categories separated with one column");
-
                             String[] tokens = sc.nextLine().split(",");
                             Collections.addAll(category,tokens);
                             System.out.println("Enter Author: ");
@@ -83,8 +83,6 @@ public class Test {
                         }
 
                     }else{
-
-                        System.out.println("Wrong input!");
                         break;
 
                     }
@@ -93,7 +91,7 @@ public class Test {
             }
             if (inputCRUD.equals("r")) {
 
-                while (inputREAD.equals("")) {
+                while (true) {
 
                     System.out.println("What you would like to read\n\nPress:\tc for categorys\n\t\tn to News\n\t\ta to Authors");
                     inputREAD = sc.nextLine();
@@ -123,8 +121,53 @@ public class Test {
 
             }
 
+            if (inputCRUD.equals("d")) {
+
+                while (true) {
+
+                    System.out.println("What would you like to delete\n\nPress:\tc for categorys\n\t\tn to News\n\t\ta to Authors");
+                    inputDELETE = sc.nextLine();
+                    if(inputDELETE.equals("c")){
+
+                        database.getCategories();
+                        while (true){
+
+                            System.out.println("Enter index of category to delete");
+                            inputDELETE = sc.nextLine();
+                            if (inputDELETE.equals("STOP"))break;
+
+                            if (inputDELETE.matches("\\d")){
+                                database.deleteCategory(Integer.parseInt(inputDELETE));
+                                break;
+                            }else{
+                                System.out.println("You need to enter a number, or STOP to go back.");
+                            }
+
+                        }
+
+                    }else if(inputREAD.equals("n")){
+
+                        database.getNews();
+                        break;
+
+                    }else if(inputREAD.equals("a")){
+
+                        database.getAuthors();
+                        break;
+
+                    }else{
+
+                        System.out.println("Wrong input! try again");
+                        break;
+
+                    }
+
+                }
+
+            }
+
             inputCREATE="";
-            inputCRUD="";
+            //inputCRUD="";
             inputREAD="";
 
         }

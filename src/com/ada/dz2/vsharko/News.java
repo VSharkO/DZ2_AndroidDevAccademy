@@ -41,6 +41,10 @@ public class News {
         this.author = autor;
     }
 
+    public void setCategory(List<String> category) {
+        this.category = category;
+    }
+
     public String getDate() {
         return date;
     }
