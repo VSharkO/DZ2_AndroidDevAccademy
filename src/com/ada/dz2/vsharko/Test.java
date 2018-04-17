@@ -31,10 +31,10 @@ public class Test {
             //Create while
             if (inputCRUD.equals("c")) {
 
-                while (inputCREATE.equals("")) {
+                while (true) {
                     System.out.println("What would you like to create\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Author");
                     inputCREATE = sc.nextLine();
-
+                    if (inputCREATE.equals("STOP")) break;
 
                     //create news while
                     if (inputCREATE.equals("n")) {
@@ -44,7 +44,9 @@ public class Test {
                             List<String> category = new LinkedList<>();
                             String author="";
                             System.out.println("Enter News text: ");
+
                             text = sc.nextLine();
+
                             if (text.equals("STOP")) break;
                             System.out.println("Enter Categories separated with one column");
                             String categoryText = sc.nextLine();
@@ -68,6 +70,7 @@ public class Test {
                             String author;
                             System.out.println("Enter Author: ");
                             author = sc.nextLine();
+
                             if (author.equals("STOP")) break;
                             database.createAuthor(author);
 
@@ -81,15 +84,13 @@ public class Test {
                             String category;
                             System.out.println("Enter Category: ");
                             category = sc.nextLine();
+
                             if (category.equals("STOP")) break;
                             database.createCategory(category);
 
                         }
 
-                    } else {
-                        break;
-
-                    }
+                    } else break;
 
                 }
             }

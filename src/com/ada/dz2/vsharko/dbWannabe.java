@@ -92,7 +92,7 @@ public class dbWannabe {
 
                 }
                 newsList.removeAll(deleteList);
-                //categoryList.remove(index-1);
+                categoryList.remove(index-1);
             }else{
 
             System.out.println("There is no Category with that index, try again!");
