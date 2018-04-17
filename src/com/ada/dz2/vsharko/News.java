@@ -70,6 +70,6 @@ public class News {
     public String toString(){
 
 
-        return ("\n\t\t"+getAuthor() + "\t\t" + getCategory() + "\t\t"+ getDate());
+        return ("\t\t"+getAuthor() + "\t\t" + getCategory() + "\t\t"+ getDate());
     }
 }

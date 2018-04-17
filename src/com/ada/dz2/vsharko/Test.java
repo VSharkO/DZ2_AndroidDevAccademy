@@ -15,51 +15,55 @@ public class Test {
         dbWannabe database = new dbWannabe();
         Scanner sc = new Scanner(System.in);
         String inputCRUD;
-        String inputCREATE="";
-        String inputREAD="";
-        String inputDELETE="";
+        String inputCREATE = "";
+        String inputREAD = "";
+        String inputDELETE = "";
 
         //CRUD while
-        while(true) {
+        while (true) {
 
             System.out.println("\n\nINSTRUCTION: Type \"STOP\" when your done with task\n\n " +
                     "Press:\tc to create\n\t\tr to read\n\t\tu to update\n\t\td to delete");
             inputCRUD = sc.nextLine();
 
-            if(inputCRUD.equals("STOP"))break;
+            if (inputCRUD.equals("STOP")) break;
 
             //Create while
             if (inputCRUD.equals("c")) {
 
                 while (inputCREATE.equals("")) {
-                    System.out.println("What would you like to create\n\nPress:\tc for category\n\t\tn to News\n\t\ta to Author");
+                    System.out.println("What would you like to create\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Author");
                     inputCREATE = sc.nextLine();
 
 
                     //create news while
-                    if (inputCREATE.equals("n")){
-                        while (true){
+                    if (inputCREATE.equals("n")) {
+                        while (true) {
 
                             String text = "";
                             List<String> category = new LinkedList<>();
-                            String author;
-
+                            String author="";
                             System.out.println("Enter News text: ");
                             text = sc.nextLine();
                             if (text.equals("STOP")) break;
                             System.out.println("Enter Categories separated with one column");
-                            String[] tokens = sc.nextLine().split(",");
-                            Collections.addAll(category,tokens);
+                            String categoryText = sc.nextLine();
+                            if(categoryText.contains(",")) {
+                                String[] tokens = categoryText.split(",");
+                                Collections.addAll(category, tokens);
+                            }else{
+                                category.add(categoryText);
+                            }
                             System.out.println("Enter Author: ");
                             author = sc.nextLine();
-                            database.createNews(text, author,category);
+                            database.createNews(text, author, category);
 
                         }
 
                         //create category while
-                    }else if (inputCREATE.equals("a")){
+                    } else if (inputCREATE.equals("a")) {
 
-                        while (true){
+                        while (true) {
 
                             String author;
                             System.out.println("Enter Author: ");
@@ -70,7 +74,7 @@ public class Test {
                         }
 
                         //create author while
-                    }else if (inputCREATE.equals("c")){
+                    } else if (inputCREATE.equals("c")) {
 
                         while (true) {
 
@@ -82,7 +86,7 @@ public class Test {
 
                         }
 
-                    }else{
+                    } else {
                         break;
 
                     }
@@ -93,24 +97,24 @@ public class Test {
 
                 while (true) {
 
-                    System.out.println("What you would like to read\n\nPress:\tc for categorys\n\t\tn to News\n\t\ta to Authors");
+                    System.out.println("What you would like to read\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Authors");
                     inputREAD = sc.nextLine();
-                    if(inputREAD.equals("c")){
+                    if (inputREAD.equals("c")) {
 
                         database.getCategories();
                         break;
 
-                    }else if(inputREAD.equals("n")){
+                    } else if (inputREAD.equals("n")) {
 
                         database.getNews();
                         break;
 
-                    }else if(inputREAD.equals("a")){
+                    } else if (inputREAD.equals("a")) {
 
                         database.getAuthors();
                         break;
 
-                    }else{
+                    } else {
 
                         System.out.println("Wrong input! try again");
                         break;
@@ -125,52 +129,73 @@ public class Test {
 
                 while (true) {
 
-                    System.out.println("What would you like to delete\n\nPress:\tc for categorys\n\t\tn to News\n\t\ta to Authors");
+                    System.out.println("What would you like to delete\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Authors");
                     inputDELETE = sc.nextLine();
-                    if(inputDELETE.equals("c")){
+                    if (inputDELETE.equals("STOP"))break;
 
+                    if (inputDELETE.equals("c")) {
                         database.getCategories();
-                        while (true){
+                        while (true) {
 
                             System.out.println("Enter index of category to delete");
                             inputDELETE = sc.nextLine();
-                            if (inputDELETE.equals("STOP"))break;
+                            if (inputDELETE.equals("STOP")) break;
 
-                            if (inputDELETE.matches("\\d")){
+                            if (inputDELETE.matches("\\d")) {
                                 database.deleteCategory(Integer.parseInt(inputDELETE));
                                 break;
-                            }else{
+                            } else {
                                 System.out.println("You need to enter a number, or STOP to go back.");
                             }
 
                         }
 
-                    }else if(inputREAD.equals("n")){
+                    } else if (inputDELETE.equals("n")) {
 
                         database.getNews();
-                        break;
+                        while (true) {
 
-                    }else if(inputREAD.equals("a")){
+                            System.out.println("Enter index of News to delete");
+                            inputDELETE = sc.nextLine();
+                            if (inputDELETE.equals("STOP")) break;
+
+                            if (inputDELETE.matches("\\d")) {
+                                database.deleteNews(Integer.parseInt(inputDELETE));
+                                break;
+                            } else {
+                                System.out.println("You need to enter a number, or STOP to go back.");
+                            }
+
+                        }
+
+                    } else if (inputDELETE.equals("a")) {
 
                         database.getAuthors();
-                        break;
+                        while (true) {
 
-                    }else{
+                            System.out.println("Enter index of Author to delete");
+                            inputDELETE = sc.nextLine();
+                            if (inputDELETE.equals("STOP")) break;
 
-                        System.out.println("Wrong input! try again");
-                        break;
+                            if (inputDELETE.matches("\\d")) {
+                                database.deleteAuthor(Integer.parseInt(inputDELETE));
+                                break;
+                            } else {
+                                System.out.println("You need to enter a number, or STOP to go back.");
+                            }
+                        }
+
 
                     }
 
                 }
 
-            }
 
-            inputCREATE="";
+            }
+            inputCREATE = "";
             //inputCRUD="";
-            inputREAD="";
+            //inputREAD = "";
 
         }
-
     }
 }

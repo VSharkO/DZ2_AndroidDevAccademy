@@ -13,8 +13,7 @@ public class dbWannabe {
 //setters/creators
     public void createAuthor(String author) {
 
-        boolean flag = false;
-        List<String> temp=new LinkedList<>();
+
         if (!authorList.contains(author)){
             this.authorList.add(author);
         }
@@ -36,23 +35,18 @@ public class dbWannabe {
 
             if(!categoryList.contains(cg)){
                 this.categoryList.add(cg);
-
             }
             instanceCategoryes.add(cg);
-
         }
         createAuthor(author);
         this.newsList.add(new News(text,instanceCategoryes,author));
-
     }
 
 //getters
     public void getAuthors(){
         int i=1;
-        List<String> thisList;
-        thisList=this.authorList;
-        Collections.sort(thisList);
-        for (String element : thisList) {
+
+        for (String element : authorList) {
 
             System.out.println(i+". "+element);
             i++;
@@ -71,41 +65,65 @@ public class dbWannabe {
     }
 
     public void getNews(){
+        int i=1;
         for (News element : newsList) {
 
-            System.out.println(element.toString());
+            System.out.println(i+". "+element);
+            i++;
 
         }
     }
 
     public void deleteCategory(int index){
-        if(index<categoryList.size()&&index>0) {
-            int i = 0;
+        if(index<=categoryList.size()&&index>0) {
+            List<News> deleteList = new LinkedList<>();
             for (News news : newsList) {
-                List<String> c = new LinkedList<>();
+                List<String> thisCategories = new LinkedList<>();
                 String[] tokens = news.getCategory().split(",");
-                Collections.addAll(c, tokens);
-
-                if (c.size() == 1 && categoryList.get(index-1).equals(c.get(0))) {
-                    newsList.remove(i);
-                    break;
+                Collections.addAll(thisCategories, tokens);
+                if (thisCategories.size() == 1 && categoryList.get(index-1).equals(thisCategories.get(0))) {
+                    deleteList.add(news);
                 }
 
-                if (c.contains(categoryList.get(index-1))) {
-                    c.remove(categoryList.get(index-1));
-                    news.setCategory(c);
+                if (thisCategories.contains(categoryList.get(index-1))) {
+                    thisCategories.remove(categoryList.get(index-1));
+                    news.setCategory(thisCategories);
                     }
-                i++;
+
                 }
-            categoryList.remove(index-1);
+                newsList.removeAll(deleteList);
+                //categoryList.remove(index-1);
             }else{
 
-            System.out.println("There is no category with that index, try again!");
+            System.out.println("There is no Category with that index, try again!");
 
         }
-
     }
 
+    public void deleteNews(int index){
+        if(index<=newsList.size() && index>0) {
+            newsList.remove(index - 1);
+        }else{
+            System.out.println("There is no News with that index, try again!");
+        }
+    }
+
+    public void deleteAuthor(int index){
+        List<News> deleteNews = new LinkedList<>();
+        if(index<=authorList.size() && index>0) {
+            for (News news : newsList) {
+                if (news.getAuthor().equals(authorList.get(index - 1))) {
+                    deleteNews.add(news);
+                }
+            }
+            authorList.remove(index - 1);
+            newsList.removeAll(deleteNews);
+        }else{
+
+            System.out.println("There is no Author with that index, try again!");
+
+        }
+    }
 
 }
 
