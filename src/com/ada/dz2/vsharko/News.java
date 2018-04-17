@@ -52,9 +52,11 @@ public class News {
     public String getCategory() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i<category.size();i++) {
+
             sb.append(category.get(i));
             if (i<category.size()-1)
             sb.append(",");
+
         }
 
         return sb.toString();
