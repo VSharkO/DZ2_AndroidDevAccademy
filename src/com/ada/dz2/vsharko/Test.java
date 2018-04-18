@@ -33,7 +33,7 @@ public class Test {
             if (inputCRUD.equals("c")) {
                 while (true) {
 
-                    System.out.println("What would you like to create\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Author");
+                    System.out.println("What would you like to create\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
                     inputCREATE = sc.nextLine();
                     if (inputCREATE.equals("STOP")) break;
 
@@ -49,7 +49,7 @@ public class Test {
                             text = sc.nextLine();
                             if (text.equals("STOP")) break;
 
-                            System.out.println("Enter Categories separated with one column");
+                            System.out.println("Enter Category separated with one column");
                             String categoryText = sc.nextLine();
 
                             if(categoryText.contains(",")) {
@@ -101,7 +101,7 @@ public class Test {
 
                 while (true) {
 
-                    System.out.println("What you would like to read\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Authors");
+                    System.out.println("What you would like to read\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
                     inputREAD = sc.nextLine();
                     if(inputREAD.equals("STOP"))break;
 
@@ -139,7 +139,7 @@ public class Test {
 
                 while (true) {
 
-                    System.out.println("What would you like to delete\n\nPress:\tc for Categories\n\t\tn to News\n\t\ta to Authors");
+                    System.out.println("What would you like to delete\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
                     inputDELETE = sc.nextLine();
                     if (inputDELETE.equals("STOP"))break;
 
