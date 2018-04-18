@@ -29,9 +29,9 @@ public class Start {
                 case "r" : controller.readFunction();
                 break;
                 /*case "u" : controller.updateFunction();
-                break;
-                case "d" : controller.deleteFunction();
                 break;*/
+                case "d" : controller.deleteFunction();
+                break;
                 default: System.out.print("Wrong input key, try again!");
             }
 

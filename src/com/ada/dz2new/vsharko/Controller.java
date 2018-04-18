@@ -16,17 +16,20 @@ public class Controller {
             inputCREATE = sc.nextLine();
             if (inputCREATE.equals("STOP")) break;
 
-            switch (inputCREATE){
-                case "c": createCategory();
-                break;
-                case "a": createAuthor();
-                break;
-                case "n":createNews();
+            switch (inputCREATE) {
+                case "c":
+                    createCategory();
+                    break;
+                case "a":
+                    createAuthor();
+                    break;
+                case "n":
+                    createNews();
             }
         }
     }
 
-    public void createCategory(){
+    public void createCategory() {
         sc = new Scanner(System.in);
         String category;
         while (true) {
@@ -39,7 +42,7 @@ public class Controller {
         }
     }
 
-    public void createAuthor(){
+    public void createAuthor() {
         while (true) {
             sc = new Scanner(System.in);
             String author;
@@ -51,7 +54,7 @@ public class Controller {
         }
     }
 
-    public void createNews(){
+    public void createNews() {
         while (true) {
 
             String text = "";
@@ -65,10 +68,10 @@ public class Controller {
             System.out.println("Enter Category separated with one column");
             String categoryText = sc.nextLine();
             String[] tokens = categoryText.split(",");
-            for (String token:tokens) {
-                    category.add(new Category(token));
-                    database.createCategory(new Category(token));
-                }
+            for (String token : tokens) {
+                category.add(new Category(token));
+                database.createCategory(new Category(token));
+            }
 
             System.out.println("Enter Author: ");
             author = new Author(sc.nextLine());
@@ -78,32 +81,69 @@ public class Controller {
         }
     }
 
-    public void readFunction(){
+    public void readFunction() {
         while (true) {
             String inputREAD = "";
             System.out.println("What would you like to read?\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
             inputREAD = sc.nextLine();
             if (inputREAD.equals("STOP")) break;
 
-            switch (inputREAD){
-                case "c": readCategory();
+            switch (inputREAD) {
+                case "c":
+                    readCategory();
                     break;
-                case "a": readAuthor();
+                case "a":
+                    readAuthor();
                     break;
-                case "n":readNews();
-                break;
-                default: System.out.print("Wrong input key, try again!");
+                case "n":
+                    readNews();
+                    break;
+                default:
+                    System.out.print("Wrong input key, try again!");
             }
         }
     }
 
-    public void readCategory(){
+    public void readCategory() {
         database.readCategories();
     }
-    public void readNews(){
+
+    public void readNews() {
         database.readNews();
     }
-    public void readAuthor(){
+
+    public void readAuthor() {
         database.readAuthor();
     }
+
+    public void deleteFunction() {
+        sc = new Scanner(System.in);
+        while (true) {
+            String inputDELETE = "";
+            System.out.println("What would you like to delete\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
+            inputDELETE = sc.nextLine();
+            if (inputDELETE.equals("STOP")) break;
+
+            switch (inputDELETE) {
+
+                case "c":
+                    deleteCategory();
+                    break;/*
+                case "a": deleteAuthor();
+                break;
+                case "n":deleteNews();
+                break;*/
+                    default: System.out.print("Wrong input key, try again!");
+
+                }
+            }
+    }
+
+    public void deleteCategory() {
+        sc = new Scanner(System.in);
+        readCategory();
+        System.out.print("Enter the name of category that u want to delete: ");
+        database.deleteCategory(sc.nextLine());
+    }
 }
+

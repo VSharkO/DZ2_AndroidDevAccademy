@@ -1,10 +1,5 @@
 package com.ada.dz2new.vsharko;
 
-
-import java.util.HashSet;
-import java.util.Set;
-
-
 public class Category {
 
     private String name;

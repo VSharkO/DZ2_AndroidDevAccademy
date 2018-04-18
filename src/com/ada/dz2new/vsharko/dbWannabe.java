@@ -1,22 +1,13 @@
 package com.ada.dz2new.vsharko;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class dbWannabe {
-    private Set<Author> authors = new HashSet<>();
+    private Set<String> authors = new HashSet<>();
     private List<News> news = new LinkedList<>();
-    private Set<Category> categories = new HashSet<>();
+    private Set<String> categories = new HashSet<>();
 
-    public Set<Author> getAuthors() {
-        return authors;
-    }
 
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
 
     public List<News> getNews(){
         return news;
@@ -26,29 +17,21 @@ public class dbWannabe {
         this.news = news;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
-
     public void createCategory(Category category){
 
-        this.categories.add(category);
+        this.categories.add(category.getName());
     }
     public void createAuthor(Author author){
-        this.authors.add(author);
+        this.authors.add(author.getName());
     }
     public void createNews(News news) {
         this.news.add(news);
     }
     public void readCategories(){
         int i=1;
-        for (Category element : categories) {
+        for (String element : categories) {
 
-            System.out.println(i+". "+element.getName());
+            System.out.println(i+". "+element);
             i++;
 
         }
@@ -65,11 +48,42 @@ public class dbWannabe {
     public void readAuthor(){
         int i=1;
 
-        for (Author element : authors) {
+        for (String element : authors) {
 
-            System.out.println(i+". "+element.getName());
+            System.out.println(i+". "+element);
             i++;
 
+        }
+    }
+
+    public void deleteCategory(String categoryName){
+        if(this.categories.contains(categoryName)) {
+            boolean isOnlyThatCategory=false;
+            List<News> newsToDelete = new LinkedList<>();
+            List<String> newCategories;
+            for (News item: news) {
+                //if in news there is only one category and that category we want to delete,
+                // then delete (that)news.
+                if (item.getNameCategories().size() == 1 && item.getNameCategories().contains(categoryName)) {
+                    isOnlyThatCategory = true;
+                    newsToDelete.add(item);
+                }
+                //delete category from categoriesList
+                if (this.categories.contains(categoryName)) {
+                    this.categories.remove(categoryName);
+
+                }
+                //if its not the only chategory in news, delete that category.
+                newCategories = item.getNameCategories();
+                newCategories.remove(categoryName);
+                item.setCategoriesNames(newCategories);
+            }
+            if(isOnlyThatCategory){
+                news.removeAll(newsToDelete);
+            }
+
+        }else{
+            System.out.println("There is no Category with that Name, try again!");
         }
     }
 }

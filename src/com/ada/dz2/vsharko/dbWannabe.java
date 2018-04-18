@@ -76,13 +76,15 @@ public class dbWannabe {
 
     public void deleteCategory(int index){
         if(index<=categoryList.size()&&index>0) {
-            List<News> deleteList = new LinkedList<>();
+            boolean isOnlyThatCategory=false;
             for (News news : newsList) {
                 List<String> thisCategories = new LinkedList<>();
                 String[] tokens = news.getCategory().split(",");
                 Collections.addAll(thisCategories, tokens);
+                //if in news there is only one category and that category we want to delete,
+                // then delete (that)news.
                 if (thisCategories.size() == 1 && categoryList.get(index-1).equals(thisCategories.get(0))) {
-                    deleteList.add(news);
+                    isOnlyThatCategory = true;
                 }
 
                 if (thisCategories.contains(categoryList.get(index-1))) {
@@ -91,7 +93,9 @@ public class dbWannabe {
                     }
 
                 }
-                newsList.removeAll(deleteList);
+                if(isOnlyThatCategory){
+                //newsList.remove(index);
+            }
                 categoryList.remove(index-1);
             }else{
 
