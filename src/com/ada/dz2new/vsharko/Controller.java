@@ -128,15 +128,17 @@ public class Controller {
 
                 case "c":
                     deleteCategory();
-                    break;/*
-                case "a": deleteAuthor();
-                break;
+                    break;
+                case "a":
+                    deleteAuthor();
+                    break;
                 case "n":deleteNews();
-                break;*/
-                    default: System.out.print("Wrong input key, try again!");
+                    break;
+                default:
+                    System.out.print("Wrong input key, try again!");
 
-                }
             }
+        }
     }
 
     public void deleteCategory() {
@@ -145,5 +147,25 @@ public class Controller {
         System.out.print("Enter the name of category that u want to delete: ");
         database.deleteCategory(sc.nextLine());
     }
-}
 
+    public void deleteAuthor() {
+        sc = new Scanner(System.in);
+        readAuthor();
+        System.out.print("Enter the name of Author that u want to delete: ");
+        database.deleteAuthor(sc.nextLine());
+    }
+
+    public void deleteNews() {
+        sc = new Scanner(System.in);
+        readNews();
+        String inputDELETE = "";
+        System.out.print("Enter the index of News that u want to delete: ");
+        inputDELETE = sc.nextLine();
+        if (inputDELETE.matches("\\d") && Integer.parseInt(inputDELETE)>0) {
+            database.deleteNews(Integer.parseInt(inputDELETE));
+        }else{
+            System.out.println("Wrong input! Try again!");
+        }
+    }
+}
+//još update komplet funkcijonalnost, sortiranje za izlistavanje i to je to.

@@ -86,4 +86,26 @@ public class dbWannabe {
             System.out.println("There is no Category with that Name, try again!");
         }
     }
+
+    public void deleteAuthor(String authorName){
+
+        List<News> newsToDelete = new LinkedList<>();
+        for (News item: news) {
+
+            if (item.getAuthor().getName().equals(authorName)) {
+                newsToDelete.add(item);
+            }
+
+
+            this.authors.remove(authorName);
+        }
+        this.news.removeAll(newsToDelete);
+
+    }
+
+    public void deleteNews(int index){
+
+        this.news.remove(index-1);
+
+    }
 }
