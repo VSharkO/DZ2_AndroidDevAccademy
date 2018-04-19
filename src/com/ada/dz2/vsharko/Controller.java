@@ -1,33 +1,12 @@
 package com.ada.dz2.vsharko;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Controller {
-
-    public Scanner sc;
-    private dbWannabe database;
-
-    public void createFunction() {
-        sc = new Scanner(System.in);
-        database = new dbWannabe();
-        while (true) {
-            String inputCREATE = "";
-            System.out.println("What would you like to create\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
-            inputCREATE = sc.nextLine();
-            if (inputCREATE.equals("STOP")) break;
-
-            switch (inputCREATE) {
-                case "c":
-                    createCategory();
-                    break;
-                case "a":
-                    createAuthor();
-                    break;
-                case "n":
-                    createNews();
-            }
-        }
-    }
+    Scanner sc;
+    dbWannabe database;
 
     public void createCategory() {
         sc = new Scanner(System.in);
@@ -81,66 +60,6 @@ public class Controller {
         }
     }
 
-    public void readFunction() {
-        while (true) {
-            String inputREAD = "";
-            System.out.println("What would you like to read?\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
-            inputREAD = sc.nextLine();
-            if (inputREAD.equals("STOP")) break;
-
-            switch (inputREAD) {
-                case "c":
-                    readCategory();
-                    break;
-                case "a":
-                    readAuthor();
-                    break;
-                case "n":
-                    readNews();
-                    break;
-                default:
-                    System.out.print("Wrong input key, try again!");
-            }
-        }
-    }
-
-    public void readCategory() {
-        database.readCategories();
-    }
-
-    public void readNews() {
-        database.readNews();
-    }
-
-    public void readAuthor() {
-        database.readAuthor();
-    }
-
-    public void deleteFunction() {
-        sc = new Scanner(System.in);
-        while (true) {
-            String inputDELETE = "";
-            System.out.println("What would you like to delete\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
-            inputDELETE = sc.nextLine();
-            if (inputDELETE.equals("STOP")) break;
-
-            switch (inputDELETE) {
-
-                case "c":
-                    deleteCategory();
-                    break;
-                case "a":
-                    deleteAuthor();
-                    break;
-                case "n":deleteNews();
-                    break;
-                default:
-                    System.out.print("Wrong input key, try again!");
-
-            }
-        }
-    }
-
     public void deleteCategory() {
         sc = new Scanner(System.in);
         readCategory();
@@ -167,5 +86,19 @@ public class Controller {
             System.out.println("Wrong input! Try again!");
         }
     }
+
+    public void readCategory() {
+        database.readCategories();
+    }
+
+    public void readAuthor() {
+        database.readAuthor();
+    }
+
+    public void readNews() {
+        database.readNews();
+    }
+
+
+
 }
-//još update komplet funkcijonalnost, sortiranje za izlistavanje i to je to.

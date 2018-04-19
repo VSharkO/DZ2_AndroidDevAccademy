@@ -8,25 +8,19 @@ public class dbWannabe {
     private Set<String> categories = new HashSet<>();
 
 
-
-    public List<News> getNews(){
-        return news;
-    }
-
-    public void setNews(List<News> news) {
-        this.news = news;
-    }
-
     public void createCategory(Category category){
 
         this.categories.add(category.getName());
     }
+
     public void createAuthor(Author author){
         this.authors.add(author.getName());
     }
+
     public void createNews(News news) {
         this.news.add(news);
     }
+
     public void readCategories(){
         int i=1;
         for (String element : categories) {
@@ -36,6 +30,7 @@ public class dbWannabe {
 
         }
     }
+
     public void readNews(){
         int i=1;
         for (News element : news) {
@@ -45,6 +40,7 @@ public class dbWannabe {
 
         }
     }
+
     public void readAuthor(){
         int i=1;
 
@@ -107,5 +103,13 @@ public class dbWannabe {
 
         this.news.remove(index-1);
 
+    }
+
+    public List<News> getNews(){
+        return news;
+    }
+
+    public void setNews(List<News> news) {
+        this.news = news;
     }
 }
