@@ -1,83 +1,41 @@
-/*package com.ada.dz2.vsharko;
+package com.ada.dz2.vsharko;
 
-import java.util.*;
 
+//Create a CMS using console interface. Types used: Author, Category, News.
+//Program enables CRUD on each type, list news by categories, authors and dates of news.
+//One news can be in many categories.
+
+import java.util.Scanner;
 
 public class Start {
-
     public static void main(String[] args) {
-
+        Controller controller = new Controller();
         Scanner sc = new Scanner(System.in);
-        List<String> categoryList = new LinkedList<>();
-        List<String> authorList = new LinkedList<>();
-        List<News> newsList = new LinkedList<>();
-        String inputCRUD="";
-        String inputCREATE="";
-        categoryList.clear();
-        authorList.clear();
-        newsList.clear();
 
-        //CRUD while
-        while(true) {
-            System.out.println("\n\nPress:\tc to create\n\t\tr to read\n\t\tu to update\n\t\td to delete");
+        String inputCRUD;
+
+        //Create while
+        while (true) {
+
+            System.out.println("\n\nINSTRUCTION: Type \"STOP\" when your done with task\n\n " +
+                    "Press:\tc to create\n\t\tr to read\n\t\tu to update\n\t\td to delete");
+
             inputCRUD = sc.nextLine();
-            if(inputCRUD.equals("STOP"))break;
-            //Create while
-            if (inputCRUD.equals("c")) {
-                while (inputCREATE.equals("")) {
-                    System.out.println("What you would like to create\n\nPress:\tc for category\n\t\tn to News\n\t\ta to Author");
-                    inputCREATE = sc.nextLine();
-                    //create news while
-                    if (inputCREATE.equals("n")) {
-                        while (true){
+            if (inputCRUD.equals("STOP")) break;
 
-                            String text = "";
-                            List<String> category = new LinkedList<>();
-                            String author;
-
-                            System.out.println("Enter News text: ");
-                            text = sc.nextLine();
-                            if (text.equals("STOP")) break;
-                            System.out.println("Enter Categories separated with one column");
-                            String[] tokens = sc.nextLine().split(",");
-                            for (String token : tokens) {
-                                category.add(token);
-                                if (!categoryList.contains(token)) {
-                                    categoryList.add(token);
-                                }
-                            }
-
-                            System.out.println("Enter Author: ");
-                            author = sc.nextLine();
-                            String thisAuthor = author;
-                            if (!authorList.contains(thisAuthor)) {
-                                authorList.add(thisAuthor);
-                            }
-
-
-                            newsList.add(new News(text, category, author));
-
-                        }
-                    //create category while
-                    }else if (inputCREATE.equals("c")){
-
-                    //create author while
-                    }else if (inputCREATE.equals("a")){
-
-                    }else{
-                        System.out.println("Wrong input!");
-                    }
-                    break;
-                }
+            switch (inputCRUD){
+                case "c" : controller.createFunction();
+                break;
+                case "r" : controller.readFunction();
+                break;
+                /*case "u" : controller.updateFunction();
+                break;*/
+                case "d" : controller.deleteFunction();
+                break;
+                default: System.out.print("Wrong input key, try again!");
             }
-            if (inputCRUD.equals("r")) {
-                    System.out.println("\n\t\t\tAuthor\t\t\tCategory\t\t\tDate");
-                for (News element : newsList) {
-                    System.out.println(element.toString());
-                }
-            }
+
+
         }
     }
 }
-*/
-

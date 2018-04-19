@@ -2,47 +2,55 @@ package com.ada.dz2.vsharko;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class News {
 
     private String text;
-    private List<String> category;
-    private String author;
+    private Author author;
+    private Set<Category> categories;
     private String date;
 
-    public News(String text, List<String> category, String autor) {
 
-        this.text = text;
-        this.category = category;
-        this.author = autor;
-
+    public News(String text, Author author, Set<Category> categories){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date thisDate = new Date();
         date=dateFormat.format(thisDate);
-
-    }
-
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
         this.text = text;
+        this.author = author;
+        this.categories = categories;
+
     }
 
-    public String getAuthor() {
-        return author;
+    public List<String> getNameCategories() {
+        List<String> categoriesNames = new LinkedList<>();
+        for (Category element:categories) {
+            categoriesNames.add(element.getName());
+        }
+        return categoriesNames;
     }
 
-    public void setAuthor(String autor) {
-        this.author = autor;
+    public void setCategoriesNames(List<String> categories) {
+        Set<Category> cat= new HashSet<>();
+        for (String name:categories) {
+            Category nameCat = new Category(name);
+            cat.add(nameCat);
+            this.categories = cat;
+        }
     }
 
-    public void setCategory(List<String> category) {
-        this.category = category;
+    public String toString(){
+        String newsToString;
+        StringBuilder sb = new StringBuilder();
+        int i=0;
+        for (Category element:categories) {
+            sb.append(element.getName());
+            if(i<categories.size()-1)sb.append(",");
+                i++;
+        }
+        newsToString="AUTHOR: "+this.author.getName()+"\t\tCATEGORY: "+sb.toString()+"\t\tDATE: "+this.date+"\t\tNEWS: "+this.text;
+
+        return newsToString;
     }
 
     public String getDate() {
@@ -53,23 +61,27 @@ public class News {
         this.date = date;
     }
 
-    public String getCategory() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i<category.size();i++) {
-
-            sb.append(category.get(i));
-            if (i<category.size()-1)
-            sb.append(",");
-
-        }
-
-        return sb.toString();
+    public String getText() {
+        return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
 
-    public String toString(){
+    public Author getAuthor() {
+        return author;
+    }
 
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
-        return ("\t\t"+getAuthor() + "\t\t" + getCategory() + "\t\t"+ getDate());
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

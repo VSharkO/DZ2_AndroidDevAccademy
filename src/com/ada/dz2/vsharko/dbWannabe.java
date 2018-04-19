@@ -1,52 +1,54 @@
 package com.ada.dz2.vsharko;
 
-
-
 import java.util.*;
 
-
 public class dbWannabe {
-    List<String> categoryList = new LinkedList<>();
-    List<String> authorList = new LinkedList<>();
-    List<News> newsList = new LinkedList<>();
-
-//setters/creators
-    public void createAuthor(String author) {
+    private Set<String> authors = new HashSet<>();
+    private List<News> news = new LinkedList<>();
+    private Set<String> categories = new HashSet<>();
 
 
-        if (!authorList.contains(author)){
-            this.authorList.add(author);
-        }
 
+    public List<News> getNews(){
+        return news;
     }
 
-    public void createCategory(String category){
-
-        if(!categoryList.contains(category)){
-            this.categoryList.add(category);
-        }
-
+    public void setNews(List<News> news) {
+        this.news = news;
     }
 
-    public void createNews(String text,String author, List<String> category){
+    public void createCategory(Category category){
 
-        List<String> instanceCategoryes = new LinkedList<>();
-        for (String cg:category) {
-
-            if(!categoryList.contains(cg)){
-                this.categoryList.add(cg);
-            }
-            instanceCategoryes.add(cg);
-        }
-        createAuthor(author);
-        this.newsList.add(new News(text,instanceCategoryes,author));
+        this.categories.add(category.getName());
     }
+    public void createAuthor(Author author){
+        this.authors.add(author.getName());
+    }
+    public void createNews(News news) {
+        this.news.add(news);
+    }
+    public void readCategories(){
+        int i=1;
+        for (String element : categories) {
 
-//getters
-    public void getAuthors(){
+            System.out.println(i+". "+element);
+            i++;
+
+        }
+    }
+    public void readNews(){
+        int i=1;
+        for (News element : news) {
+            String ovaj = element.toString();
+            System.out.println(i+". "+ovaj);
+            i++;
+
+        }
+    }
+    public void readAuthor(){
         int i=1;
 
-        for (String element : authorList) {
+        for (String element : authors) {
 
             System.out.println(i+". "+element);
             i++;
@@ -54,91 +56,56 @@ public class dbWannabe {
         }
     }
 
-    public void getCategories(){
-        int i=1;
-        for (String element : categoryList) {
-
-            System.out.println(i+". "+element);
-            i++;
-
-        }
-    }
-
-    public void getNews(){
-        int i=1;
-        for (News element : newsList) {
-
-            System.out.println(i+". "+element);
-            i++;
-
-        }
-    }
-
-    public void deleteCategory(int index){
-        if(index<=categoryList.size()&&index>0) {
+    public void deleteCategory(String categoryName){
+        if(this.categories.contains(categoryName)) {
             boolean isOnlyThatCategory=false;
-            for (News news : newsList) {
-                List<String> thisCategories = new LinkedList<>();
-                String[] tokens = news.getCategory().split(",");
-                Collections.addAll(thisCategories, tokens);
+            List<News> newsToDelete = new LinkedList<>();
+            List<String> newCategories;
+            for (News item: news) {
                 //if in news there is only one category and that category we want to delete,
                 // then delete (that)news.
-                if (thisCategories.size() == 1 && categoryList.get(index-1).equals(thisCategories.get(0))) {
+                if (item.getNameCategories().size() == 1 && item.getNameCategories().contains(categoryName)) {
                     isOnlyThatCategory = true;
+                    newsToDelete.add(item);
                 }
-
-                if (thisCategories.contains(categoryList.get(index-1))) {
-                    thisCategories.remove(categoryList.get(index-1));
-                    news.setCategory(thisCategories);
-                    }
+                //delete category from categoriesList
+                if (this.categories.contains(categoryName)) {
+                    this.categories.remove(categoryName);
 
                 }
-                if(isOnlyThatCategory){
-                //newsList.remove(index);
+                //if its not the only chategory in news, delete that category.
+                newCategories = item.getNameCategories();
+                newCategories.remove(categoryName);
+                item.setCategoriesNames(newCategories);
             }
-                categoryList.remove(index-1);
-            }else{
+            if(isOnlyThatCategory){
+                news.removeAll(newsToDelete);
+            }
 
-            System.out.println("There is no Category with that index, try again!");
-
+        }else{
+            System.out.println("There is no Category with that Name, try again!");
         }
+    }
+
+    public void deleteAuthor(String authorName){
+
+        List<News> newsToDelete = new LinkedList<>();
+        for (News item: news) {
+
+            if (item.getAuthor().getName().equals(authorName)) {
+                newsToDelete.add(item);
+            }
+
+
+            this.authors.remove(authorName);
+        }
+        this.news.removeAll(newsToDelete);
+
     }
 
     public void deleteNews(int index){
-        if(index<=newsList.size() && index>0) {
-            newsList.remove(index - 1);
-        }else{
-            System.out.println("There is no News with that index, try again!");
-        }
+
+        this.news.remove(index-1);
+
     }
-
-    public void deleteAuthor(int index){
-        List<News> deleteNews = new LinkedList<>();
-        if(index<=authorList.size() && index>0) {
-            for (News news : newsList) {
-                if (news.getAuthor().equals(authorList.get(index - 1))) {
-                    deleteNews.add(news);
-                }
-            }
-            authorList.remove(index - 1);
-            newsList.removeAll(deleteNews);
-        }else{
-
-            System.out.println("There is no Author with that index, try again!");
-
-        }
-    }
-
-    public void getNewsText(int index){
-        if(index<=newsList.size() && index>0){
-            System.out.println(newsList.get(index-1).getText());
-        }else{
-            System.out.println("There is no news with that index, try again!");
-        }
-    }
-
 }
-
-
-
-

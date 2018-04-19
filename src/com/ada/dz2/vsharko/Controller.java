@@ -1,4 +1,4 @@
-package com.ada.dz2new.vsharko;
+package com.ada.dz2.vsharko;
 
 import java.util.*;
 
