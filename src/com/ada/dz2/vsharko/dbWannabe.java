@@ -70,7 +70,7 @@ public class dbWannabe {
                     this.categories.remove(categoryName);
 
                 }
-                //if its not the only chategory in news, delete that category.
+                //if its not the only category in news, delete that category.
                 newCategories = item.getNameCategories();
                 newCategories.remove(categoryName);
                 item.setCategoriesNames(newCategories);
@@ -154,5 +154,14 @@ public class dbWannabe {
         }else{
             System.out.println("There is no Category with that Name, try again!");
         }
+    }
+
+    public void updateNews(int index, News news) {
+        //this first remove--bcs function "createNews" in controller automatically add in db new news, and then return instance of that news,
+        //here we remove that last news in list,which is automatically added,then remove news that wanted to be updated,
+        //and then on that same index we add updated news.
+        this.news.remove(this.news.size()-1);
+        this.news.remove(index);
+        this.news.add(index,news);
     }
 }

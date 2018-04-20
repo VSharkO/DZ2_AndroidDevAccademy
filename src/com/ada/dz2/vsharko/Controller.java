@@ -1,13 +1,12 @@
 package com.ada.dz2.vsharko;
 
-import java.sql.Connection;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Controller {
-    public Scanner sc;
-    public dbWannabe database;
+    Scanner sc;
+    dbWannabe database;
 
     public Controller(){
         database = new dbWannabe();
@@ -38,37 +37,32 @@ public class Controller {
         }
     }
 
-    public void createNews() {
+    public News createNews() {
         sc = new Scanner(System.in);
-        while (true) {
+        News news=null;
+        String text = "";
+        Set<Category> category = new HashSet<>();
+        Author author;
 
-            String text = "";
-            Set<Category> category = new HashSet<>();
-            Author author;
-
-            System.out.println("Enter News text: ");
-            text = sc.nextLine();
-            if (text.equals("STOP")) break;
-
-            System.out.println("Enter Category separated with one column");
-            String categoryText = sc.nextLine();
-            String[] tokens = categoryText.split(",");
-            for (String token : tokens) {
-                category.add(new Category(token));
-
-                database.createCategory(new Category(token));
-            }
-
+        System.out.println("Enter News text: ");
+        text = sc.nextLine();
+        System.out.println("Enter Category separated with one column");
+        String categoryText = sc.nextLine();
+        String[] tokens = categoryText.split(",");
+        for (String token : tokens) {
+            category.add(new Category(token));
+            database.createCategory(new Category(token));
+        }
             System.out.println("Enter Author: ");
             author = new Author(sc.nextLine());
 
             database.createAuthor(author);
 
-            News news = new News(text, author, category);
+            news = new News(text, author, category);
 
             database.createNews(news);
 
-        }
+        return news;
     }
 
     public void deleteCategory() {
@@ -137,12 +131,13 @@ public class Controller {
         sc = new Scanner(System.in);
         int index;
         readNews();
-        String inputDELETE = "";
-        System.out.print("Enter the index of News that u want to delete: ");
-        inputDELETE = sc.nextLine();
-        index=Integer.parseInt(inputDELETE)-1;
-        if (inputDELETE.matches("\\d") && index>0) {
-            database.deleteNews(index);
+        String inputUPDATE = "";
+        System.out.print("Enter the index of News that u want to update: ");
+        inputUPDATE = sc.nextLine();
+        index=Integer.parseInt(inputUPDATE)-1;
+        if (inputUPDATE.matches("\\d") && index>0) {
+            News news = createNews();
+            database.updateNews(index,news);
         }else{
             System.out.println("Wrong input! Try again!");
         }
