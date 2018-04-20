@@ -13,6 +13,7 @@ public class News {
 
 
     public News(String text, Author author, Set<Category> categories){
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date thisDate = new Date();
         date=dateFormat.format(thisDate);
@@ -23,34 +24,45 @@ public class News {
     }
 
     public List<String> getNameCategories() {
+
         List<String> categoriesNames = new LinkedList<>();
         for (Category element:categories) {
+
             categoriesNames.add(element.getName());
+
         }
         return categoriesNames;
+
     }
 
     public void setCategoriesNames(List<String> categories) {
+
         Set<Category> cat= new HashSet<>();
         for (String name:categories) {
+
             Category nameCat = new Category(name);
             cat.add(nameCat);
             this.categories = cat;
+
         }
+
     }
 
     public String toString(){
+
         String newsToString;
         StringBuilder sb = new StringBuilder();
         int i=0;
         for (Category element:categories) {
+
             sb.append(element.getName());
             if(i<categories.size()-1)sb.append(",");
                 i++;
+
         }
         newsToString="AUTHOR: "+this.author.getName()+"\t\tCATEGORY: "+sb.toString()+"\t\tDATE: "+this.date+"\t\tNEWS: "+this.text;
-
         return newsToString;
+
     }
 
     public String getDate() {

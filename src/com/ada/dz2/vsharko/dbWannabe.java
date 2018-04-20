@@ -12,6 +12,7 @@ public class dbWannabe {
     public void createCategory(Category category){
 
         this.categories.add(category.getName());
+
     }
 
     public void createAuthor(Author author){
@@ -23,6 +24,7 @@ public class dbWannabe {
     }
 
     public void readCategories(){
+
         int i=1;
         for (String element : categories) {
 
@@ -30,35 +32,43 @@ public class dbWannabe {
             i++;
 
         }
+
     }
 
     public void readNews(){
+
         int i=1;
         for (News element : news) {
+
             String ovaj = element.toString();
             System.out.println(i+". "+ovaj);
             i++;
 
         }
+
     }
 
     public void readAuthor(){
-        int i=1;
 
+        int i=1;
         for (String element : authors) {
 
             System.out.println(i+". "+element);
             i++;
 
         }
+
     }
 
     public void deleteCategory(String categoryName){
+
         if(this.categories.contains(categoryName)) {
+
             boolean isOnlyThatCategory=false;
             List<News> newsToDelete = new LinkedList<>();
             List<String> newCategories;
             for (News item: news) {
+
                 //if in news there is only one category and that category we want to delete,
                 // then delete (that)news.
                 if (item.getNameCategories().size() == 1 && item.getNameCategories().contains(categoryName)) {
@@ -68,13 +78,14 @@ public class dbWannabe {
                 //delete category from categoriesList
                 if (this.categories.contains(categoryName)) {
                     this.categories.remove(categoryName);
-
                 }
                 //if its not the only category in news, delete that category.
                 newCategories = item.getNameCategories();
                 newCategories.remove(categoryName);
                 item.setCategoriesNames(newCategories);
+
             }
+
             if(isOnlyThatCategory){
                 news.removeAll(newsToDelete);
             }
@@ -82,6 +93,7 @@ public class dbWannabe {
         }else{
             System.out.println("There is no Category with that Name, try again!");
         }
+
     }
 
     public void deleteAuthor(String authorName){
@@ -92,18 +104,15 @@ public class dbWannabe {
             if (item.getAuthor().getName().equals(authorName)) {
                 newsToDelete.add(item);
             }
-
-
             this.authors.remove(authorName);
+
         }
         this.news.removeAll(newsToDelete);
 
     }
 
     public void deleteNews(int index){
-
         this.news.remove(index-1);
-
     }
 
     public List<News> getNews(){
@@ -115,12 +124,13 @@ public class dbWannabe {
     }
 
     public void updateCategory(String category, String newCategory) {
+
         List<String> newCategories;
 
         if(this.categories.contains(category)) {
             this.categories.add(newCategory);
-
             for (News item: news) {
+
                 //if in news there is only one category and that category we want to delete,
                 // then delete (that)news.
                 if (item.getNameCategories().contains(category)) {
@@ -129,26 +139,27 @@ public class dbWannabe {
                     newCategories.add(newCategory);
                     item.setCategoriesNames(newCategories);
                 }
+
             }
             deleteCategory(category);
 
         }else{
             System.out.println("There is no Category with that Name, try again!");
         }
+
     }
 
     public void updateAuthor(String author, String newAuthor) {
 
         if(this.authors.contains(author)) {
             this.authors.add(newAuthor);
-
-
             for (News item: news) {
                 //if in news there is only one category and that category we want to delete,
                 // then delete (that)news.
                 if (item.getAuthor().getName().equals(author)) {
                     item.getAuthor().setName(newAuthor);
                 }
+
             }
             deleteAuthor(author);
         }else{
