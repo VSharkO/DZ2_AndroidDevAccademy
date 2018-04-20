@@ -3,6 +3,7 @@ package com.ada.dz2.vsharko;
 import java.util.*;
 
 public class dbWannabe {
+
     private Set<String> authors = new HashSet<>();
     private List<News> news = new LinkedList<>();
     private Set<String> categories = new HashSet<>();
@@ -111,5 +112,47 @@ public class dbWannabe {
 
     public void setNews(List<News> news) {
         this.news = news;
+    }
+
+    public void updateCategory(String category, String newCategory) {
+        List<String> newCategories;
+
+        if(this.categories.contains(category)) {
+            this.categories.add(newCategory);
+
+            for (News item: news) {
+                //if in news there is only one category and that category we want to delete,
+                // then delete (that)news.
+                if (item.getNameCategories().contains(category)) {
+                    newCategories = item.getNameCategories();
+                    newCategories.remove(category);
+                    newCategories.add(newCategory);
+                    item.setCategoriesNames(newCategories);
+                }
+            }
+            deleteCategory(category);
+
+        }else{
+            System.out.println("There is no Category with that Name, try again!");
+        }
+    }
+
+    public void updateAuthor(String author, String newAuthor) {
+
+        if(this.authors.contains(author)) {
+            this.authors.add(newAuthor);
+
+
+            for (News item: news) {
+                //if in news there is only one category and that category we want to delete,
+                // then delete (that)news.
+                if (item.getAuthor().getName().equals(author)) {
+                    item.getAuthor().setName(newAuthor);
+                }
+            }
+            deleteAuthor(author);
+        }else{
+            System.out.println("There is no Category with that Name, try again!");
+        }
     }
 }

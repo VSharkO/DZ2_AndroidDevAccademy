@@ -27,8 +27,8 @@ public class ViewController {
                     break;
                 case "r" : readFunction();
                     break;
-                /*case "u" : updateFunction();
-                break;*/
+                case "u" : updateFunction();
+                break;
                 case "d" : deleteFunction();
                     break;
                 default: System.out.print("Wrong input key, try again!");
@@ -105,6 +105,27 @@ public class ViewController {
                 default:
                     System.out.print("Wrong input key, try again!");
 
+            }
+        }
+    }
+
+    public void updateFunction() {
+
+        while (true) {
+            String inputUPDATE= "";
+            System.out.println("What would you like to update\n\nPress:\tc for Category\n\t\tn to News\n\t\ta to Author");
+            inputUPDATE = sc.nextLine();
+            if (inputUPDATE.equals("STOP")) break;
+
+            switch (inputUPDATE) {
+                case "c":
+                    controller.updateCategory();
+                    break;
+                case "a":
+                    controller.updateAuthor();
+                    break;
+                case "n":
+                    controller.updateNews();
             }
         }
     }
