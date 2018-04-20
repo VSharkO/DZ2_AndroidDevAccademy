@@ -35,6 +35,18 @@ public class dbWannabe {
 
     }
 
+    public void readAuthor(){
+
+        int i=1;
+        for (String element : authors) {
+
+            System.out.println(i+". "+element);
+            i++;
+
+        }
+
+    }
+
     public void readNews(){
 
         int i=1;
@@ -42,18 +54,6 @@ public class dbWannabe {
 
             String ovaj = element.toString();
             System.out.println(i+". "+ovaj);
-            i++;
-
-        }
-
-    }
-
-    public void readAuthor(){
-
-        int i=1;
-        for (String element : authors) {
-
-            System.out.println(i+". "+element);
             i++;
 
         }
@@ -115,14 +115,6 @@ public class dbWannabe {
         this.news.remove(index-1);
     }
 
-    public List<News> getNews(){
-        return news;
-    }
-
-    public void setNews(List<News> news) {
-        this.news = news;
-    }
-
     public void updateCategory(String category, String newCategory) {
 
         List<String> newCategories;
@@ -174,5 +166,33 @@ public class dbWannabe {
         this.news.remove(this.news.size()-1);
         this.news.remove(index);
         this.news.add(index,news);
+    }
+
+    public void readNewsByAuthors() {
+        int i=1;
+        List<News> newsSorted = new LinkedList<>(news);
+        Collections.sort(newsSorted,new NewsAuthorComparator());
+
+        for (News element : newsSorted) {
+
+            String ovaj = element.toString();
+            System.out.println(i+". "+ovaj);
+            i++;
+
+        }
+    }
+
+    public void readNewsByCategory() {
+        int i=1;
+        List<News> newsSorted = new LinkedList<>(news);
+        Collections.sort(newsSorted,new NewsCategoryComparator());
+
+        for (News element : newsSorted) {
+
+            String ovaj = element.toString();
+            System.out.println(i+". "+ovaj);
+            i++;
+
+        }
     }
 }

@@ -130,4 +130,4 @@ public class ViewController {
         }
     }
 }
-//još update komplet funkcijonalnost, sortiranje za izlistavanje i to je to.
+

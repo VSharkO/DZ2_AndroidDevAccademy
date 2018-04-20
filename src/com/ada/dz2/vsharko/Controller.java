@@ -168,9 +168,7 @@ public class Controller {
     }
 
     public void readCategory() {
-
         database.readCategories();
-
     }
 
     public void readAuthor() {
@@ -180,8 +178,28 @@ public class Controller {
     }
 
     public void readNews() {
-
+        String inputREAD="";
         database.readNews();
+        while(true){
+            System.out.print("\n\nEnter: \t- c to list by category\n\t\t -a to list by author" +
+                    "\n\t\t -d to list by date\n");
+            inputREAD= sc.nextLine();
+            if (inputREAD.equals("STOP")) break;
+            switch(inputREAD){
+                case "a":
+                    database.readNewsByAuthors();
+                    break;
+                case "c":
+                    database.readNewsByCategory();
+                    break;
+                case "d":
+                    database.readNews();
+                    break;
 
+                    default:
+                        System.out.println("Wrong input! try again!");
+            }
+        }
     }
+
 }
